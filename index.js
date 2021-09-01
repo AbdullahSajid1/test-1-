@@ -2,16 +2,15 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const postrouter = require("./router");
+require("dotenv").config();
 
+// middle ware
 app.use(express.json());
 app.use("/posts", postrouter);
 
-mongoose.connect(
-  "mongodb+srv://abdullah-sajid:abdullah@cluster007.jbdkb.mongodb.net/posts?retryWrites=true&w=majority",
-  () => {
-    console.log("connected to mongodb");
-  }
-);
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
+  console.log("connected to mongodb");
+});
 
 app.get("/", (req, res) => {
   res.send("welcome to app");

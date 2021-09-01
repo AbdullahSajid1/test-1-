@@ -21,4 +21,12 @@ router.post("/", async (req, res) => {
     res.json({ message: error });
   }
 });
+router.get("/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    res.json(post);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
 module.exports = router;
